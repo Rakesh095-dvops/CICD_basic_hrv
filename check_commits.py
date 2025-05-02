@@ -3,6 +3,7 @@ import os
 import requests
 import sys
 import json
+import time
 # Importing dotenv to load environment variables from a .env file
 from dotenv import load_dotenv
 
@@ -13,7 +14,7 @@ GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 REPO_OWNER = os.getenv("REPO_OWNER")
 REPO_NAME = os.getenv("REPO_NAME")
 BRANCH = os.getenv("BRANCH", "main")  # Default to 'main' if not specified
-DEPLOYSCRIPT_LOC = os.getenv("DEPDEPLOYSCRIPT_LOC")
+DEPLOYSCRIPT_LOC = os.getenv("DEPLOYSCRIPT_LOC")
 
 # GitHub API URL to get latest commit
 url = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/commits/{BRANCH}"
@@ -25,6 +26,9 @@ headers = {
 
 # Check latest commit
 def check_latest_commit():
+    t = time.localtime()
+    current_time = time.strftime("%H:%M:%S", t)
+    print(f"check_latest_commit()---method called on {current_time}")
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         commit_data = response.json()
@@ -34,7 +38,7 @@ def check_latest_commit():
         print(f"Commit message: {commit_message}")
         return latest_sha  # Return the latest commit SHA
     else:
-        print(f"Failed to fetch latest commit. Status Code: {response.status_code}")
+        print(f"Failed to fetch latest commit on {current_time}. Status Code: {response.status_code}")
         print(response.json())
         sys.exit(1)
 
@@ -62,4 +66,4 @@ def main():
 
 if __name__ == "__main__":
     #main()
-    #print(check_latest_commit())
+    print(check_latest_commit())
