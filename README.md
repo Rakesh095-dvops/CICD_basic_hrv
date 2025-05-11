@@ -52,7 +52,8 @@ Create a complete **CI/CD** pipeline using bash, python, and crontabs, AWS servi
     # 2. view the contents of the public key file
     cat .ssh/id_rsa.pub
     ```
-    >**Best Practices**-Use SSH keys with GitHub to allow passwordless ```git pull```
+
+    >**Best Practices**-Use SSH keys with GitHub to allow passwordless ```git pull```. update ```ssh-keyscan github.com >> ~/.ssh/known_hosts```.
 ## 3. CI/CD Script Configuration : 
 
 - ```check_commits.py``` & ```deploy.sh``` script combined will check for new commits from [[sample_html_proj]](https://github.com/Rakesh095-dvops/sample_html_proj.git) github repo and deploy the ```index.html``` to ```/var/www/proj```.
